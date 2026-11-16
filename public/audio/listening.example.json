@@ -1,0 +1,21 @@
+{
+  "sets": [
+    {
+      "id": "L-S1-hotel",
+      "title": "Booking a hotel room",
+      "description": "Section 1 — percakapan telepon",
+      "section": 1,
+      "file": "s1-hotel-booking.mp3",
+      "usage": "practice",
+      "difficulty": 2,
+      "durationSec": 300,
+      "transcript": "Receptionist: Good morning, Riverside Hotel ...",
+      "questions": [
+        { "type": "completion", "prompt": "Guest's surname: ______ (ONE WORD)", "answer": ["Hartono"], "explanation": "The guest spells H-A-R-T-O-N-O.", "skillTag": "listening-intro" },
+        { "type": "completion", "prompt": "Number of nights: ______ (A NUMBER)", "answer": ["3", "three"], "explanation": "'I'd like to stay for three nights.'", "skillTag": "listening-intro" },
+        { "type": "mcq", "prompt": "Which room type does the guest choose?", "options": ["Single", "Double", "Family suite"], "answer": 1, "explanation": "She changes from single to double.", "skillTag": "listening-intro" },
+        { "type": "tfng", "prompt": "Breakfast is included in the price.", "answer": "FALSE", "explanation": "Breakfast costs extra.", "skillTag": "listening-intro" }
+      ]
+    }
+  ]
+}

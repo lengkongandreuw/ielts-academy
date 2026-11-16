@@ -1,103 +1,49 @@
-import Image from "next/image";
+"use client";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useApp } from "@/lib/store";
+import { LinkButton } from "@/components/ui";
 
-export default function Home() {
+const FEATURES = [
+  ["🧭 Diagnostic Test", "Ukur grammar, vocabulary, reading, writing, dan speaking awal Anda."],
+  ["🗺️ Perjalanan 112 Hari", "Roadmap 16 minggu: Foundation → IELTS Skills → Band Improvement → Exam Prep."],
+  ["⚡ XP, Streak & Badge", "Tantangan harian, level, dan badge membuat belajar setiap hari lebih seru."],
+  ["✍️ Writing & Speaking", "Latihan dengan timer, rekaman suara, rubrik IELTS, dan contoh jawaban."],
+  ["🛠️ Error Log Personal", "Kesalahan berulang dicatat dan diubah menjadi latihan ulang."],
+  ["🤖 AI Tutor (opsional)", "Pakai API key Claude Anda sendiri untuk tutor & evaluasi esai."],
+];
+
+export default function Landing() {
+  const { state, ready } = useApp();
+  const router = useRouter();
+  useEffect(() => {
+    if (ready && state.profile?.onboardedAt) router.replace("/dashboard");
+  }, [ready, state.profile, router]);
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <main className="mx-auto max-w-5xl px-4 py-10 sm:py-16">
+      <header className="flex items-center gap-2 font-semibold">
+        <span className="grid size-8 place-items-center rounded-lg bg-primary text-sm text-primary-fg">IA</span> IELTS Academy
+      </header>
+      <section className="mt-14 max-w-2xl sm:mt-20">
+        <p className="text-sm font-medium text-primary">IELTS Academic · Target Band 7.0</p>
+        <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">Belajar IELTS sedikit demi sedikit, setiap hari.</h1>
+        <p className="mt-4 text-lg text-muted">Mulai dari diagnostic, ikuti pelajaran harian, kumpulkan XP, dan lihat kemampuan Anda naik menuju Band 7.</p>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <LinkButton href="/onboarding">Mulai belajar</LinkButton>
+          <LinkButton href="/onboarding#restore" variant="secondary">Pulihkan dari backup</LinkButton>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        <p className="mt-4 text-sm text-muted">Gratis, tanpa akun. Progres tersimpan di browser perangkat ini — gunakan fitur backup untuk pindah perangkat.</p>
+      </section>
+      <section className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {FEATURES.map(([t, d]) => (
+          <div key={t} className="rounded-xl bg-surface p-5 ring-1 ring-line/70">
+            <p className="font-medium">{t}</p>
+            <p className="mt-1 text-sm text-muted">{d}</p>
+          </div>
+        ))}
+      </section>
+      <p className="mt-16 text-xs text-muted">IELTS Academy tidak berafiliasi dengan penyelenggara IELTS. Semua estimasi skor bersifat simulasi dan bukan skor IELTS resmi. Materi ditulis sendiri untuk platform ini.</p>
+    </main>
   );
 }
