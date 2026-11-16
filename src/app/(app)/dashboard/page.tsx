@@ -23,7 +23,7 @@ export default function Dashboard() {
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <p className="text-sm text-muted">Selamat datang kembali{name ? `, ${name.split(" ")[0]}` : ""}</p>
-          <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
+          <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl">Dashboard</h1>
         </div>
         <Badge tone={d.readiness === "target_met" ? "success" : d.readiness === "insufficient_data" ? "neutral" : "primary"}>Readiness: {READINESS_LABEL[d.readiness]}</Badge>
       </div>
@@ -38,12 +38,12 @@ export default function Dashboard() {
       )}
 
       {/* Primary action */}
-      <Card className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <Card className="relative flex flex-col gap-4 overflow-hidden ring-brand sm:flex-row sm:items-center sm:justify-between" style={{ background: "radial-gradient(600px 200px at 90% 0%, color-mix(in srgb, var(--primary) 22%, transparent), transparent 70%), var(--surface)" }}>
         <div className="min-w-0">
-          <p className="text-xs font-medium uppercase tracking-wide text-primary">Today&apos;s Lesson</p>
+          <p className="eyebrow text-primary">Today&apos;s Lesson</p>
           {d.current ? (
             <>
-              <p className="mt-1 truncate text-lg font-semibold">
+              <p className="mt-2 truncate text-xl font-extrabold sm:text-2xl">
                 Day {d.current.dayIndex}: {d.current.title}
               </p>
               <p className="text-sm text-muted">
@@ -61,7 +61,7 @@ export default function Dashboard() {
         )}
       </Card>
 
-      <Link href="/challenge" className={`flex items-center justify-between gap-3 rounded-xl p-4 ring-1 transition-colors ${d.challengeDone ? "bg-success-soft ring-success/30" : "bg-warning-soft ring-warning/30 hover:opacity-90"}`}>
+      <Link href="/challenge" className={`flex items-center justify-between gap-3 rounded-2xl p-4 ring-1 transition-colors ${d.challengeDone ? "bg-success-soft ring-success/30" : "bg-primary-soft ring-primary/40 hover:ring-primary"}`}>
         <div>
           <p className="font-semibold">⚡ Daily Challenge</p>
           <p className="text-sm text-muted">{d.challengeDone ? "Selesai hari ini. Kembali besok untuk tantangan baru!" : "5 soal cepat dari materi Anda · +40 XP"}</p>

@@ -188,5 +188,5 @@ export const emptyState = (): AppState => ({
   activity: {},
   mocks: {},
   game: { xp: 0, badges: {}, challenges: {}, log: [] },
-  settings: { apiKey: "", model: "claude-opus-5-5", theme: "system", sound: true },
+  settings: { apiKey: "", model: "claude-opus-5-5", theme: "dark", sound: true },
 });

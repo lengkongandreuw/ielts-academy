@@ -55,7 +55,7 @@ export function SpeakingStudio() {
           </div>
           <div className="grid gap-3 md:grid-cols-2">
             {prompts.map((p) => (
-              <button key={p.id} onClick={() => setPrompt(p)} className="rounded-xl bg-surface p-4 text-left ring-1 ring-line/70 transition-colors hover:ring-primary">
+              <button key={p.id} onClick={() => setPrompt(p)} className="rounded-2xl bg-surface p-4 text-left ring-1 ring-line transition-colors hover:ring-primary">
                 <div className="flex items-center justify-between gap-2"><Badge tone="primary">Part {p.part}</Badge><span className="text-xs text-muted">{p.prepSec ? `${p.prepSec}s persiapan · ` : ""}{p.speakSec}s</span></div>
                 <p className="mt-2 font-medium">{p.prompt}</p>
                 <p className="text-xs text-muted">{p.topic}</p>

@@ -52,7 +52,7 @@ export function HBars({ data, max = 100, unit = "%", label }: { data: { label: s
   );
 }
 
-const COLORS = ["#2f6fde", "#d9822b", "#2a9d6f", "#b5479a", "#6b7280", "#c0352b"];
+const COLORS = ["#ff7a1a", "#60a5fa", "#4ade80", "#c084fc", "#a1a1aa", "#f87171"];
 
 export function Lines({ series, min = 0, max = 9, label, unit = "" }: { series: { name: string; points: { at: string; value: number }[] }[]; min?: number; max?: number; label: string; unit?: string }) {
   const all = series.flatMap((s) => s.points);

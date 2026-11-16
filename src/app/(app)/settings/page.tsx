@@ -17,9 +17,9 @@ export default function Settings() {
 
   function setTheme(t: "system" | "light" | "dark") {
     update((s) => { s.settings.theme = t; });
-    try { if (t === "system") localStorage.removeItem("ia-theme"); else localStorage.setItem("ia-theme", t); } catch {}
-    if (t === "system") delete document.documentElement.dataset.theme;
-    else document.documentElement.dataset.theme = t;
+    try { localStorage.setItem("ia-theme", t); } catch {}
+    if (t === "light") document.documentElement.dataset.theme = "light";
+    else delete document.documentElement.dataset.theme;
   }
   async function saveKey() {
     update((s) => { s.settings.apiKey = key.trim(); });
@@ -73,8 +73,8 @@ export default function Settings() {
       <Card>
         <SectionTitle>Tampilan & suara</SectionTitle>
         <div className="flex flex-wrap gap-2">
-          {([["system", "Ikuti sistem"], ["light", "Terang"], ["dark", "Gelap"]] as const).map(([k, l]) => (
-            <button key={k} onClick={() => setTheme(k)} className={cx("rounded-full px-4 py-1.5 text-sm", state.settings.theme === k ? "bg-primary text-primary-fg" : "bg-surface-2 text-muted")}>{l}</button>
+          {([["dark", "Gelap (default)"], ["light", "Terang"]] as const).map(([k, l]) => (
+            <button key={k} onClick={() => setTheme(k)} className={cx("rounded-full px-4 py-1.5 text-sm", (state.settings.theme === "light" ? "light" : "dark") === k ? "bg-primary text-primary-fg" : "bg-surface-2 text-muted")}>{l}</button>
           ))}
         </div>
         <label className="mt-4 flex items-center gap-2 text-sm">

@@ -77,7 +77,7 @@ export function WritingWorkspace({ id }: { id: string }) {
         <Badge tone="primary">{w.prompt.taskType === "task1" ? "Task 1" : w.prompt.taskType === "task2" ? "Task 2" : "Paragraph"}</Badge>
         {w.revision > 1 && <Badge>Revisi {w.revision}</Badge>}
       </div>
-      <h1 className="text-2xl font-semibold tracking-tight">{w.prompt.title}</h1>
+      <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl">{w.prompt.title}</h1>
 
       <div className="grid gap-4 lg:grid-cols-[1fr_1.2fr]">
         <Card className="lg:sticky lg:top-6 lg:self-start">
@@ -160,7 +160,7 @@ export function WritingWorkspace({ id }: { id: string }) {
           )}
 
           {!draft && !hideFeedback && model && (
-            <details className="rounded-xl bg-surface p-5 ring-1 ring-line/70">
+            <details className="rounded-2xl bg-surface p-5 ring-1 ring-line">
               <summary className="cursor-pointer font-medium">📄 Contoh jawaban model</summary>
               <p className="mt-2 text-xs text-muted">{model.note} Ini salah satu cara menjawab yang baik — bukan satu-satunya jawaban benar.</p>
               <p className="mt-3 whitespace-pre-wrap text-sm leading-7">{model.text}</p>

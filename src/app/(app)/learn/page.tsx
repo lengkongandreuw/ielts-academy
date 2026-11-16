@@ -11,8 +11,8 @@ const NODE: Record<LessonState, string> = {
   locked: "bg-surface-2 text-muted ring-line",
   available: "bg-surface text-primary ring-primary",
   in_progress: "bg-primary text-primary-fg ring-primary animate-pulse",
-  completed: "bg-success text-white ring-success",
-  needs_review: "bg-warning text-white ring-warning",
+  completed: "bg-success text-bg ring-success",
+  needs_review: "bg-warning text-bg ring-warning",
 };
 const LABEL: Record<LessonState, string> = { locked: "Terkunci", available: "Tersedia", in_progress: "Sedang berjalan", completed: "Selesai", needs_review: "Perlu review" };
 

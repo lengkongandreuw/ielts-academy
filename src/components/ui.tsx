@@ -6,10 +6,10 @@ export const cx = (...c: (string | false | null | undefined)[]) => c.filter(Bool
 type BtnVariant = "primary" | "secondary" | "ghost" | "danger";
 const btn = (v: BtnVariant = "primary", size: "sm" | "md" = "md") =>
   cx(
-    "inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed",
-    size === "sm" ? "h-8 px-3 text-sm" : "h-10 px-4 text-sm",
-    v === "primary" && "bg-primary text-primary-fg hover:opacity-90",
-    v === "secondary" && "bg-surface-2 text-fg hover:bg-line",
+    "inline-flex items-center justify-center gap-2 rounded-xl font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed",
+    size === "sm" ? "h-8 px-3 text-sm" : "h-11 px-5 text-sm",
+    v === "primary" && "btn-brand text-white",
+    v === "secondary" && "bg-surface-2 text-fg ring-1 ring-line hover:ring-primary/60",
     v === "ghost" && "text-fg hover:bg-surface-2",
     v === "danger" && "bg-danger-soft text-danger hover:opacity-90",
   );
@@ -22,13 +22,13 @@ export function LinkButton({ variant, size, className, ...p }: ComponentProps<ty
 }
 
 export function Card({ className, ...p }: ComponentProps<"div">) {
-  return <div className={cx("rounded-xl bg-surface p-5 shadow-[0_1px_2px_rgba(16,24,40,.05)] ring-1 ring-line/70", className)} {...p} />;
+  return <div className={cx("rounded-2xl bg-surface p-5 ring-1 ring-line", className)} {...p} />;
 }
 
 export function SectionTitle({ children, action }: { children: ReactNode; action?: ReactNode }) {
   return (
     <div className="mb-3 flex items-center justify-between gap-3">
-      <h2 className="text-base font-semibold">{children}</h2>
+      <h2 className="text-base font-bold">{children}</h2>
       {action}
     </div>
   );
@@ -38,7 +38,7 @@ export function PageHeader({ title, subtitle, action }: { title: string; subtitl
   return (
     <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
       <div>
-        <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
+        <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl">{title}</h1>
         {subtitle && <p className="mt-1 text-sm text-muted">{subtitle}</p>}
       </div>
       {action}
@@ -69,14 +69,14 @@ export function Progress({ value, className, label }: { value: number; className
   const v = Math.max(0, Math.min(100, value));
   return (
     <div className={cx("h-2 w-full overflow-hidden rounded-full bg-surface-2", className)} role="progressbar" aria-valuenow={Math.round(v)} aria-valuemin={0} aria-valuemax={100} aria-label={label}>
-      <div className="h-full rounded-full bg-primary transition-[width]" style={{ width: `${v}%` }} />
+      <div className="h-full rounded-full bg-gradient-to-r from-primary-2 to-primary transition-[width]" style={{ width: `${v}%` }} />
     </div>
   );
 }
 
 export function Empty({ title, children, action }: { title: string; children?: ReactNode; action?: ReactNode }) {
   return (
-    <div className="rounded-xl border border-dashed border-line p-6 text-center">
+    <div className="rounded-2xl border border-dashed border-line p-6 text-center">
       <p className="font-medium">{title}</p>
       {children && <div className="mt-1 text-sm text-muted">{children}</div>}
       {action && <div className="mt-4 flex justify-center">{action}</div>}
@@ -89,7 +89,7 @@ export function Notice({ tone = "primary", children, className }: { tone?: Tone;
     <div
       role={tone === "danger" ? "alert" : "status"}
       className={cx(
-        "rounded-lg px-4 py-3 text-sm",
+        "rounded-xl px-4 py-3 text-sm ring-1 ring-inset ring-line/60",
         tone === "primary" && "bg-primary-soft text-fg",
         tone === "success" && "bg-success-soft text-fg",
         tone === "warning" && "bg-warning-soft text-fg",
@@ -115,7 +115,7 @@ export function Field({ label, hint, children, htmlFor }: { label: string; hint?
   );
 }
 
-export const inputCls = "h-10 w-full rounded-lg border border-line bg-surface px-3 text-sm text-fg placeholder:text-muted focus:border-primary focus:outline-none";
+export const inputCls = "h-11 w-full rounded-xl border border-line bg-surface-2 px-3 text-sm text-fg placeholder:text-muted focus:border-primary focus:outline-none";
 
 export function Stat({ label, value, sub }: { label: string; value: ReactNode; sub?: ReactNode }) {
   return (

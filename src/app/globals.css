@@ -2,65 +2,49 @@
 
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
+/* Brand: dark stage + orange spotlight (KV "Putra"). Dark is the default; light is optional. */
 :root {
-  --bg: #f6f7fb;
-  --surface: #ffffff;
-  --surface-2: #eef1f7;
-  --text: #141a2a;
-  --muted: #5b6478;
-  --border: #dfe3ec;
-  --primary: #2f5fd0;
-  --primary-soft: #e6edfc;
+  --bg: #08080a;
+  --surface: #131316;
+  --surface-2: #1c1c21;
+  --text: #f4f4f5;
+  --muted: #a1a1aa;
+  --border: #2a2a31;
+  --primary: #ff7a1a;
+  --primary-2: #e2560a;
+  --primary-soft: #2a160a;
   --primary-fg: #ffffff;
-  --success: #17804f;
-  --success-soft: #e3f4ec;
-  --warning: #9a5b00;
+  --success: #4ade80;
+  --success-soft: #0f2a1a;
+  --warning: #fbbf24;
+  --warning-soft: #2e2208;
+  --danger: #f87171;
+  --danger-soft: #331414;
+  --focus: #ff9a4d;
+  --glow: rgba(255, 106, 0, 0.45);
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --bg: #faf7f4;
+  --surface: #ffffff;
+  --surface-2: #f3eee9;
+  --text: #17120e;
+  --muted: #6b625b;
+  --border: #e7dfd7;
+  --primary: #e8620c;
+  --primary-2: #c94d05;
+  --primary-soft: #fdebdc;
+  --primary-fg: #ffffff;
+  --success: #15803d;
+  --success-soft: #e3f4ea;
+  --warning: #a15c00;
   --warning-soft: #fdf1dc;
   --danger: #c0352b;
   --danger-soft: #fbe7e5;
-  --focus: #2f5fd0;
+  --focus: #e8620c;
+  --glow: rgba(232, 98, 12, 0.25);
   color-scheme: light;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0f1320;
-    --surface: #171c2b;
-    --surface-2: #20263a;
-    --text: #e8ebf3;
-    --muted: #9aa3b8;
-    --border: #2b3248;
-    --primary: #7aa0ff;
-    --primary-soft: #1f2b4d;
-    --primary-fg: #0d1222;
-    --success: #4cc38a;
-    --success-soft: #143327;
-    --warning: #f0b45a;
-    --warning-soft: #3a2a12;
-    --danger: #ff7b70;
-    --danger-soft: #3d1a18;
-    --focus: #9db8ff;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #0f1320;
-  --surface: #171c2b;
-  --surface-2: #20263a;
-  --text: #e8ebf3;
-  --muted: #9aa3b8;
-  --border: #2b3248;
-  --primary: #7aa0ff;
-  --primary-soft: #1f2b4d;
-  --primary-fg: #0d1222;
-  --success: #4cc38a;
-  --success-soft: #143327;
-  --warning: #f0b45a;
-  --warning-soft: #3a2a12;
-  --danger: #ff7b70;
-  --danger-soft: #3d1a18;
-  --focus: #9db8ff;
-  color-scheme: dark;
 }
 
 @theme inline {
@@ -71,6 +55,7 @@
   --color-muted: var(--muted);
   --color-line: var(--border);
   --color-primary: var(--primary);
+  --color-primary-2: var(--primary-2);
   --color-primary-soft: var(--primary-soft);
   --color-primary-fg: var(--primary-fg);
   --color-success: var(--success);
@@ -79,7 +64,7 @@
   --color-warning-soft: var(--warning-soft);
   --color-danger: var(--danger);
   --color-danger-soft: var(--danger-soft);
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
 }
 
 html,
@@ -90,14 +75,33 @@ body {
 body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  /* faint orange spotlight at the top of every page */
+  background-image: radial-gradient(1200px 520px at 75% -120px, color-mix(in srgb, var(--primary) 14%, transparent), transparent 70%);
+  background-repeat: no-repeat;
 }
 :focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 2px;
-  border-radius: 6px;
+  border-radius: 8px;
 }
+::selection {
+  background: color-mix(in srgb, var(--primary) 40%, transparent);
+}
+
+/* Brand helpers */
+.btn-brand {
+  background: linear-gradient(180deg, var(--primary), var(--primary-2));
+  box-shadow: 0 8px 28px -8px var(--glow), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+.btn-brand:hover { filter: brightness(1.08); }
+.ring-brand {
+  box-shadow: 0 0 0 1px var(--primary), 0 0 32px -10px var(--glow);
+}
+.text-brand { color: var(--primary); }
+.eyebrow { letter-spacing: 0.32em; text-transform: uppercase; font-size: 0.75rem; font-weight: 600; }
+
 mark.hl {
-  background: #ffe28a;
+  background: #ffd36b;
   color: #141a2a;
   border-radius: 2px;
 }
@@ -107,9 +111,9 @@ mark.evidence {
   outline: 1px solid var(--success);
   border-radius: 2px;
 }
-.prose-lesson p { margin: 0 0 0.75rem; line-height: 1.7; }
-.prose-lesson strong { font-weight: 650; }
+.prose-lesson p { margin: 0 0 0.75rem; line-height: 1.75; }
+.prose-lesson strong { font-weight: 700; color: var(--text); }
 .prose-lesson ul { margin: 0 0 .75rem 1.25rem; list-style: disc; }
-.fade-in { animation: fade .25s ease-out; }
-@keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+.fade-in { animation: fade .3s ease-out; }
+@keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .fade-in { animation: none; } }

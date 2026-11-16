@@ -4,7 +4,24 @@ import { chromium } from "playwright-core";
 import fs from "fs";
 import path from "path";
 
-const BASE = (process.argv[2] || "https://lengkongandreuw.github.io/ielts-academy").replace(/\/$/, "");
+import http from "http";
+
+// Pass a folder (e.g. "out") to serve a local static build in-process; otherwise a URL.
+let BASE = (process.argv[2] || "https://lengkongandreuw.github.io/ielts-academy").replace(/\/$/, "");
+let server;
+if (!/^https?:/.test(BASE)) {
+  const root = path.resolve(BASE);
+  const types = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".webp": "image/webp", ".woff2": "font/woff2", ".webmanifest": "application/manifest+json", ".mp3": "audio/mpeg" };
+  server = http.createServer((req, res) => {
+    let f = path.join(root, decodeURIComponent(req.url.split("?")[0]));
+    if (fs.existsSync(f) && fs.statSync(f).isDirectory()) f = path.join(f, "index.html");
+    if (!fs.existsSync(f)) { res.writeHead(404); return res.end(); }
+    res.writeHead(200, { "Content-Type": types[path.extname(f)] ?? "application/octet-stream" });
+    fs.createReadStream(f).pipe(res);
+  });
+  await new Promise((r) => server.listen(0, "127.0.0.1", r));
+  BASE = `http://127.0.0.1:${server.address().port}`;
+}
 const SHOTS = process.argv[3] || "e2e-shots";
 fs.mkdirSync(SHOTS, { recursive: true });
 const CHROME = ["C:/Program Files/Google/Chrome/Application/chrome.exe", "/usr/bin/google-chrome"].find((p) => fs.existsSync(p));
@@ -30,7 +47,15 @@ const go = (p) => page.goto(`${BASE}${p}`, { waitUntil: "networkidle" });
 
 await step("landing", async () => {
   await go("/");
-  await page.getByRole("link", { name: "Mulai belajar" }).click();
+  await page.getByRole("heading", { name: /secara personal/ }).waitFor();
+  await page.waitForTimeout(400);
+  await shot("00-landing");
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.waitForTimeout(300);
+  if (await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1)) throw new Error("landing overflows on mobile");
+  await page.screenshot({ path: path.join(SHOTS, "00-landing-mobile.png"), fullPage: true });
+  await page.setViewportSize({ width: 1366, height: 860 });
+  await page.getByRole("link", { name: "Mulai Belajar" }).click();
   await page.waitForURL(/onboarding/);
 });
 await step("onboarding", async () => {
@@ -175,5 +200,6 @@ await step("dark mode", async () => {
 });
 
 await browser.close();
+server?.close();
 console.log(problems.length ? `\nPROBLEMS (${problems.length}):\n- ${[...new Set(problems)].join("\n- ")}` : "\nNo console errors.");
 process.exit(problems.some((p) => p.startsWith("step")) ? 1 : 0);

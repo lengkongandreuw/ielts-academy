@@ -104,7 +104,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   const schedule = useCallback(() => {
     if (saveTimer.current) clearTimeout(saveTimer.current);
-    saveTimer.current = setTimeout(persist, 250);
+    // Write right after the current event so a navigation or reload never loses the change.
+    saveTimer.current = setTimeout(persist, 0);
   }, [persist]);
 
   const load = useCallback(async () => {
@@ -113,8 +114,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       const s = migrate(raw);
       ref.current = s;
       setState(s);
-      document.documentElement.dataset.theme = s.settings.theme === "system" ? "" : s.settings.theme;
-      if (s.settings.theme === "system") delete document.documentElement.dataset.theme;
+      if (s.settings.theme === "light") document.documentElement.dataset.theme = "light";
+      else delete document.documentElement.dataset.theme;
     } catch {
       setStorageError("Penyimpanan browser tidak tersedia. Progres tidak akan tersimpan.");
     } finally {

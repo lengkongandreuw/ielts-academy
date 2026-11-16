@@ -129,7 +129,7 @@ function LessonWorkspace({ id, lessonState: lstate, vocab }: { id: string; lesso
           {data.state === "needs_review" && <Badge tone="warning">Needs Review</Badge>}
           {data.state === "completed" && <Badge tone="success">Completed</Badge>}
         </div>
-        <h1 className="mt-1 text-2xl font-semibold tracking-tight">{lesson.title}</h1>
+        <h1 className="mt-1 text-2xl font-extrabold tracking-tight sm:text-3xl">{lesson.title}</h1>
         <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted">
           <span>⏱ ±{lesson.estimatedMinutes} menit</span>
           <span>
