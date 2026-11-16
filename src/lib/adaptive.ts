@@ -133,7 +133,8 @@ export function buildRecommendations(input: {
     });
   }
   for (const r of input.recurring.slice(0, 3)) {
-    const target = r.skillTag ? input.lessons.find((l) => l.topicTag === r.skillTag) : undefined;
+    // Only point to a lesson the learner can open; otherwise offer targeted tutor practice.
+    const target = r.skillTag ? states.find((x) => x.l.topicTag === r.skillTag && x.s !== "locked")?.l : undefined;
     recs.push({
       kind: "remedial",
       title: target ? `Ulangi: ${target.title}` : `Latihan ulang: ${r.category}`,
@@ -179,7 +180,9 @@ export function buildRecommendations(input: {
       priority: 58,
     });
   }
-  return recs.sort((a, b) => b.priority - a.priority);
+  // One entry per destination, keeping the highest-priority reason.
+  const seen = new Set<string>();
+  return recs.sort((a, b) => b.priority - a.priority).filter((r) => (seen.has(r.href) ? false : (seen.add(r.href), true)));
 }
 
 export type Readiness = "insufficient_data" | "foundation" | "improving" | "near_target" | "target_met";

@@ -32,7 +32,7 @@ export default function Roadmap() {
         <Card>
           <p className="text-sm font-medium">Rencana dasar</p>
           <p className="mt-1 text-sm text-muted">
-            Lesson terbuka satu per satu setelah lesson sebelumnya selesai{state.skill.startLevel ? `. Materi foundation di bawah level ${state.skill.startLevel} (hasil diagnostic) sudah dibuka lebih awal` : ""}.
+            Lesson terbuka satu per satu setelah lesson sebelumnya selesai{state.skill.startLevel && state.skill.startLevel !== "A1" ? `. Materi foundation di bawah level ${state.skill.startLevel} (hasil diagnostic) sudah dibuka lebih awal` : ""}.
           </p>
           <Progress value={(done / 112) * 100} className="mt-3" label="Progres kurikulum" />
           <div className="mt-3 flex flex-wrap gap-3 text-xs text-muted">

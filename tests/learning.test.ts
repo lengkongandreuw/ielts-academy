@@ -164,3 +164,16 @@ describe("writing analysis without AI", () => {
     expect(a.checks.find((c) => c.text.includes("overview"))?.ok).toBe(false);
   });
 });
+
+describe("recommendations", () => {
+  it("never points remedial work at a locked lesson and has no duplicate destinations", async () => {
+    const { buildRecommendations } = await import("../src/lib/adaptive");
+    const { LESSON_META } = await import("../src/lib/content");
+    const recs = buildRecommendations({
+      hasDiagnostic: true, lessons: LESSON_META, progress: { W01D01: { status: "completed", score: null }, W01D02: { status: "needs_review", score: 40 } }, startLevel: "A1",
+      profile: {}, targetBand: 7, recurring: [{ category: "Reading interpretation", skill: "reading", skillTag: "tfng", count: 2 }, { category: "Grammar", skill: "grammar", skillTag: "sentence-structure", count: 3 }], dueVocab: 0, lowReadingTypes: [],
+    });
+    expect(recs.find((r) => r.title.includes("Reading interpretation"))?.href).toMatch(/^\/tutor/);
+    expect(new Set(recs.map((r) => r.href)).size).toBe(recs.length);
+  });
+});
