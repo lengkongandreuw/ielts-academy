@@ -16,7 +16,7 @@ if (!/^https?:/.test(BASE)) {
     let f = path.join(root, decodeURIComponent(req.url.split("?")[0]));
     if (fs.existsSync(f) && fs.statSync(f).isDirectory()) f = path.join(f, "index.html");
     if (!fs.existsSync(f)) { res.writeHead(404); return res.end(); }
-    res.writeHead(200, { "Content-Type": types[path.extname(f)] ?? "application/octet-stream" });
+    res.writeHead(200, { "Content-Type": types[path.extname(f)] ?? "application/octet-stream", "Content-Length": fs.statSync(f).size });
     fs.createReadStream(f).pipe(res);
   });
   await new Promise((r) => server.listen(0, "127.0.0.1", r));
@@ -68,14 +68,14 @@ await step("onboarding", async () => {
 await step("diagnostic test", async () => {
   await page.getByRole("button", { name: "Mulai" }).first().click();
   await page.waitForURL(/test/);
-  await page.getByText(/Content Unavailable/).first().waitFor();
+  await page.locator('nav[aria-label="Navigasi soal"] button').first().waitFor();
   const total = await page.locator('nav[aria-label="Navigasi soal"] button').count();
   for (let i = 0; i < total; i++) {
     await page.locator('nav[aria-label="Navigasi soal"] button').nth(i).click();
     const q = page.locator('section[aria-label="Questions"]');
     const radios = q.locator('input[type="radio"]');
     if (await radios.count()) await radios.first().check({ force: true });
-    else await q.getByPlaceholder("Ketik jawaban…").fill("cost");
+    else await q.getByRole("textbox").fill("cost");
   }
   await shot("02-test-question");
   await page.getByRole("button", { name: "Submit" }).first().click();
@@ -108,8 +108,8 @@ await step("lesson day 2 exercises", async () => {
       for (let attempt = 0; attempt < 2; attempt++) {
         const btn = f.getByRole("button", { name: /Check Answer|Coba lagi/ });
         if (!(await btn.count())) break;
-        const radios = f.locator('input[type="radio"]');
-        if (await radios.count()) await radios.nth(attempt).check({ force: true });
+        const choices = f.locator("label.choice");
+        if (await choices.count()) await choices.nth(attempt).click();
         else await f.getByRole("textbox").fill("is");
         await btn.click();
         await page.waitForTimeout(100);
@@ -125,8 +125,8 @@ await step("lesson day 2 exercises", async () => {
 });
 await step("dashboard", async () => {
   await go("/dashboard/");
-  await page.getByText("Today's Lesson").waitFor();
-  await page.getByText(/Lv \d/).first().waitFor();
+  await page.getByText(/Pelajaran hari ini/).waitFor();
+  await page.getByText(/Level \d/).first().waitFor();
   await shot("06-dashboard");
 });
 await step("roadmap", async () => {
@@ -162,9 +162,24 @@ await step("daily challenge", async () => {
   await page.getByRole("button", { name: "Ya, kirim" }).click();
   await page.getByText("Skor mentah").waitFor();
 });
-await step("listening unavailable", async () => {
+await step("listening audio", async () => {
   await go("/practice/listening/");
-  await page.getByText(/Content Unavailable/).waitFor();
+  const manifest = await page.evaluate(async (b) => (await fetch(`${b}/audio/listening.json`)).json(), BASE.replace(/^https?:\/\/[^/]+/, ""));
+  if (!manifest.sets?.length) {
+    await page.getByText(/Content Unavailable/).waitFor();
+    return;
+  }
+  await page.getByRole("button", { name: "Mulai" }).first().click();
+  await page.waitForURL(/test/);
+  await page.locator("audio").waitFor({ state: "attached" });
+  const dur = await page.evaluate(async () => {
+    const a = document.querySelector("audio");
+    if (!a) return -1;
+    if (!a.duration) await new Promise((r) => { a.addEventListener("loadedmetadata", r, { once: true }); a.load(); setTimeout(r, 8000); });
+    return a.duration;
+  });
+  if (!(Number.isFinite(dur) && dur > 30)) throw new Error(`audio duration wrong (${dur})`);
+  await shot("13-listening");
 });
 await step("tutor without key", async () => {
   await go("/tutor/");
@@ -187,7 +202,7 @@ await step("persistence after reload", async () => {
 await step("mobile dashboard", async () => {
   await page.setViewportSize({ width: 390, height: 844 });
   await go("/dashboard/");
-  await page.getByText("Today's Lesson").waitFor();
+  await page.getByText(/Pelajaran hari ini/).waitFor();
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1);
   if (overflow) throw new Error("horizontal overflow on mobile");
   await shot("11-mobile-dashboard");

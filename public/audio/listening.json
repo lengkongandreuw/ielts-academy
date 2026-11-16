@@ -1,3 +1,1056 @@
 {
-  "sets": []
+  "sets": [
+    {
+      "id": "L-DIAG-restaurant",
+      "title": "Booking a table",
+      "description": "Section 1 — percakapan telepon singkat",
+      "section": 1,
+      "file": "diag-booking-a-table.mp3",
+      "usage": "diagnostic",
+      "difficulty": 2,
+      "durationSec": 63,
+      "transcript": "Restaurant staff: Good afternoon, The Olive Tree restaurant. How can I help you?\n\nCustomer: Hi, I'd like to book a table for this Saturday evening, please.\n\nRestaurant staff: Of course. How many people will there be?\n\nCustomer: There'll be six of us. Actually, sorry, my sister just told me she can't come, so five.\n\nRestaurant staff: Five people on Saturday. What time would you like?\n\nCustomer: Seven thirty, if possible.\n\nRestaurant staff: I'm afraid seven thirty is fully booked. I can offer you eight fifteen.\n\nCustomer: Eight fifteen is fine.\n\nRestaurant staff: Lovely. Could I have a name for the booking?\n\nCustomer: Yes, it's Hendry. H, E, N, D, R, Y.\n\nRestaurant staff: Thank you, Mr Hendry. And a contact number?\n\nCustomer: It's oh four one two, five five seven, nine three oh.\n\nRestaurant staff: Is it a special occasion?\n\nCustomer: Yes, it's my father's retirement, so we'd love a quiet table if you have one.\n\nRestaurant staff: I'll put you in the garden room — it's much quieter than the main hall. Please arrive ten minutes early to order drinks.\n\nCustomer: Perfect. Thanks very much.",
+      "questions": [
+        {
+          "type": "completion",
+          "prompt": "Number of people: ______ (A NUMBER)",
+          "answer": [
+            "5",
+            "five"
+          ],
+          "explanation": "Awalnya enam, lalu dikoreksi menjadi lima — jawaban ada setelah koreksi.",
+          "skillTag": "listening-intro"
+        },
+        {
+          "type": "completion",
+          "prompt": "Time of booking: ______ pm",
+          "answer": [
+            "8.15",
+            "8:15",
+            "eight fifteen",
+            "815"
+          ],
+          "explanation": "Jam 7.30 penuh, yang ditawarkan 8.15.",
+          "skillTag": "listening-intro"
+        },
+        {
+          "type": "completion",
+          "prompt": "Name: Mr ______ (ONE WORD)",
+          "answer": [
+            "Hendry"
+          ],
+          "explanation": "Dieja H-E-N-D-R-Y.",
+          "skillTag": "listening-intro"
+        },
+        {
+          "type": "completion",
+          "prompt": "Phone number: ______",
+          "answer": [
+            "0412557930",
+            "0412 557 930"
+          ],
+          "explanation": "'oh' dibaca sebagai angka 0.",
+          "skillTag": "listening-intro"
+        },
+        {
+          "type": "completion",
+          "prompt": "Occasion: father's ______ (ONE WORD)",
+          "answer": [
+            "retirement"
+          ],
+          "explanation": "'my father's retirement'.",
+          "skillTag": "listening-intro"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Where will they sit?",
+          "options": [
+            "Main hall",
+            "Garden room",
+            "By the window"
+          ],
+          "answer": 1,
+          "explanation": "'I'll put you in the garden room'.",
+          "skillTag": "listening-intro"
+        }
+      ]
+    },
+    {
+      "id": "L-P1-sports-centre",
+      "title": "Joining a sports centre",
+      "description": "Section 1 — mengisi formulir pendaftaran (angka, ejaan, tanggal)",
+      "section": 1,
+      "file": "p1-joining-a-sports-centre.mp3",
+      "usage": "practice",
+      "difficulty": 2,
+      "durationSec": 134,
+      "transcript": "Receptionist: Good morning, Westfield Sports Centre, Rachel speaking.\n\nCaller: Oh, hello. I'm thinking of joining the centre and I wondered if you could give me some information.\n\nReceptionist: Certainly. I can also fill in the membership form for you over the phone, if you like.\n\nCaller: That would be great.\n\nReceptionist: Let's start with your name.\n\nCaller: It's Daniel Ferreira. Ferreira is spelt F, E, double R, E, I, R, A.\n\nReceptionist: Thank you. And your address?\n\nCaller: Forty-two Mill Lane, in Westfield.\n\nReceptionist: Forty-two Mill Lane. And the postcode?\n\nCaller: W F seven, three P T.\n\nReceptionist: Great. Now, we have three types of membership. Standard membership is twenty-eight pounds a month and lets you use the gym and the pool. Off-peak is cheaper, nineteen pounds, but you can only come before four o'clock on weekdays. And Premium, at forty-five pounds, includes all the classes.\n\nCaller: I work until five, so off-peak won't work for me. And I'm not really into classes… although, hmm, my doctor did recommend yoga for my back.\n\nReceptionist: You can actually pay for individual classes on the Standard membership. They're six pounds each.\n\nCaller: Oh, that's better. I'll go for Standard, then.\n\nReceptionist: Lovely. When would you like your membership to start?\n\nCaller: Is the first of March OK? Actually, I'm away that week. Let's say the eighth of March.\n\nReceptionist: The eighth of March, no problem. You'll also need to book an induction session before you can use the gym. The instructor shows you how to use the machines safely.\n\nCaller: How long does that take?\n\nReceptionist: About forty minutes. Most people do it on their first day.\n\nCaller: OK. And is there parking at the centre?\n\nReceptionist: Yes, members park free in the car park behind the building. Just show your membership card at the barrier. Bicycles go in the shelter next to the main entrance.\n\nCaller: Good. One last thing — do I need to bring anything when I come in for the first time?\n\nReceptionist: Just a photo for your card. Oh, and could I ask how you heard about us? We like to keep a record.\n\nCaller: A colleague at work recommended you, actually.\n\nReceptionist: Wonderful. That's everything. We look forward to seeing you.",
+      "questions": [
+        {
+          "type": "completion",
+          "prompt": "Surname: ______",
+          "answer": [
+            "Ferreira"
+          ],
+          "explanation": "Dieja F-E-double R-E-I-R-A. 'double R' = RR.",
+          "skillTag": "listening-intro"
+        },
+        {
+          "type": "completion",
+          "prompt": "Address: ______ Mill Lane (A NUMBER)",
+          "answer": [
+            "42",
+            "forty two",
+            "forty-two"
+          ],
+          "explanation": "'Forty-two Mill Lane'.",
+          "skillTag": "listening-intro"
+        },
+        {
+          "type": "completion",
+          "prompt": "Postcode: ______",
+          "answer": [
+            "WF7 3PT",
+            "WF73PT"
+          ],
+          "explanation": "W F 7, 3 P T.",
+          "skillTag": "listening-intro"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which membership does Daniel choose?",
+          "options": [
+            "Off-peak",
+            "Standard",
+            "Premium"
+          ],
+          "answer": 1,
+          "explanation": "Off-peak tidak cocok (kerja sampai jam 5); kelas bisa dibayar terpisah, jadi Standard.",
+          "skillTag": "listening-intro"
+        },
+        {
+          "type": "completion",
+          "prompt": "Monthly fee: £______ (A NUMBER)",
+          "answer": [
+            "28",
+            "twenty eight",
+            "twenty-eight"
+          ],
+          "explanation": "Standard = £28 per bulan.",
+          "skillTag": "listening-intro"
+        },
+        {
+          "type": "completion",
+          "prompt": "Cost of one yoga class: £______",
+          "answer": [
+            "6",
+            "six"
+          ],
+          "explanation": "Kelas individu £6.",
+          "skillTag": "listening-intro"
+        },
+        {
+          "type": "completion",
+          "prompt": "Start date: ______ March",
+          "answer": [
+            "8",
+            "8th",
+            "eighth",
+            "8 march",
+            "8th march"
+          ],
+          "explanation": "Tanggal 1 dikoreksi menjadi tanggal 8.",
+          "skillTag": "listening-intro"
+        },
+        {
+          "type": "completion",
+          "prompt": "Induction session length: ______ minutes",
+          "answer": [
+            "40",
+            "forty"
+          ],
+          "explanation": "'About forty minutes'.",
+          "skillTag": "listening-intro"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Where can members park?",
+          "options": [
+            "Next to the main entrance",
+            "Behind the building",
+            "On Mill Lane"
+          ],
+          "answer": 1,
+          "explanation": "Mobil di belakang gedung; sepeda di dekat pintu masuk (distractor).",
+          "skillTag": "listening-maps"
+        },
+        {
+          "type": "completion",
+          "prompt": "Heard about the centre from a ______ (ONE WORD)",
+          "answer": [
+            "colleague"
+          ],
+          "explanation": "'A colleague at work recommended you'.",
+          "skillTag": "listening-intro"
+        }
+      ]
+    },
+    {
+      "id": "L-P2-science-museum",
+      "title": "A tour of the science museum",
+      "description": "Section 2 — monolog pemandu: denah & pilihan ganda",
+      "section": 2,
+      "file": "p2-science-museum-tour.mp3",
+      "usage": "practice",
+      "difficulty": 2,
+      "durationSec": 126,
+      "transcript": "Good morning, everyone, and welcome to the Harbour Science Museum. My name's Tom, and I'll be your guide for the first part of your visit. Before we start, let me give you a quick overview of the building so you can find your way around later.\n\nWe're standing in the main hall, right by the ticket desk. If you look straight ahead, you'll see the large staircase. The cloakroom, where you can leave coats and bags free of charge, is on your left, just past the gift shop. Please note that large backpacks are not allowed in the galleries, so do leave them there.\n\nOn the ground floor, the most popular area is the Space Gallery, which is through the double doors to the right of the staircase. It has a full-size model of a Mars rover, and children love it. Opposite the Space Gallery, you'll find the café. It serves hot lunches until two o'clock, and after that just snacks and drinks.\n\nNow, the first floor. At the top of the stairs, turn left for the Energy Zone. This is our newest gallery — it only opened last month — and it's very hands-on: you can generate electricity by riding a bike or design your own wind turbine. If you turn right at the top of the stairs instead, you'll reach the Human Body exhibition. I should mention that part of it is closed today for repairs, so the heart and lungs section won't be open, but the rest is.\n\nThere's also a planetarium on the second floor. Shows last twenty-five minutes and start every hour. Tickets are not included in your entry ticket — they cost three pounds fifty — and they often sell out, so I'd recommend booking at the information point as soon as possible.\n\nA couple of practical points. Photography is allowed everywhere except in the planetarium. The museum closes at half past five, but the galleries start closing at five fifteen. And if you lose anyone in your group, please go to the information point by the main entrance rather than the ticket desk.\n\nRight, our tour begins in the Space Gallery, so if you'd like to follow me…",
+      "questions": [
+        {
+          "type": "mcq",
+          "prompt": "Where is the cloakroom?",
+          "options": [
+            "Next to the ticket desk",
+            "Past the gift shop on the left",
+            "At the top of the staircase"
+          ],
+          "answer": 1,
+          "explanation": "'on your left, just past the gift shop'.",
+          "skillTag": "listening-maps"
+        },
+        {
+          "type": "mcq",
+          "prompt": "What must visitors leave in the cloakroom?",
+          "options": [
+            "Coats",
+            "Large backpacks",
+            "Cameras"
+          ],
+          "answer": 1,
+          "explanation": "Ransel besar tidak boleh masuk galeri.",
+          "skillTag": "listening-maps"
+        },
+        {
+          "type": "mcq",
+          "prompt": "The Space Gallery is…",
+          "options": [
+            "to the right of the staircase",
+            "on the first floor",
+            "next to the café"
+          ],
+          "answer": 0,
+          "explanation": "'through the double doors to the right of the staircase'. Café ada di seberangnya (opposite).",
+          "skillTag": "listening-maps"
+        },
+        {
+          "type": "completion",
+          "prompt": "The café serves hot lunches until ______ o'clock.",
+          "answer": [
+            "2",
+            "two"
+          ],
+          "explanation": "'hot lunches until two o'clock'.",
+          "skillTag": "listening-maps"
+        },
+        {
+          "type": "mcq",
+          "prompt": "What is special about the Energy Zone?",
+          "options": [
+            "It is the oldest gallery",
+            "It opened recently",
+            "It is closed today"
+          ],
+          "answer": 1,
+          "explanation": "'our newest gallery — it only opened last month'.",
+          "skillTag": "listening-maps"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which part of the museum is partly closed today?",
+          "options": [
+            "The Energy Zone",
+            "The Human Body exhibition",
+            "The planetarium"
+          ],
+          "answer": 1,
+          "explanation": "Bagian jantung & paru-paru di Human Body sedang diperbaiki.",
+          "skillTag": "listening-maps"
+        },
+        {
+          "type": "completion",
+          "prompt": "Planetarium shows last ______ minutes.",
+          "answer": [
+            "25",
+            "twenty five",
+            "twenty-five"
+          ],
+          "explanation": "'Shows last twenty-five minutes'.",
+          "skillTag": "listening-maps"
+        },
+        {
+          "type": "completion",
+          "prompt": "Planetarium ticket price: £______",
+          "answer": [
+            "3.50",
+            "3.5",
+            "350",
+            "three fifty"
+          ],
+          "explanation": "'three pounds fifty' = £3.50.",
+          "skillTag": "listening-maps"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Where is photography NOT allowed?",
+          "options": [
+            "The Space Gallery",
+            "The planetarium",
+            "The Human Body exhibition"
+          ],
+          "answer": 1,
+          "explanation": "'allowed everywhere except in the planetarium'.",
+          "skillTag": "listening-maps"
+        },
+        {
+          "type": "mcq",
+          "prompt": "If someone gets lost, the group should go to…",
+          "options": [
+            "the ticket desk",
+            "the information point",
+            "the café"
+          ],
+          "answer": 1,
+          "explanation": "'the information point by the main entrance rather than the ticket desk'.",
+          "skillTag": "listening-maps"
+        }
+      ]
+    },
+    {
+      "id": "L-P3-presentation",
+      "title": "Planning a presentation on urban heat",
+      "description": "Section 3 — diskusi akademik dua mahasiswa dan tutor",
+      "section": 3,
+      "file": "p3-urban-heat-presentation.mp3",
+      "usage": "practice",
+      "difficulty": 3,
+      "durationSec": 141,
+      "transcript": "Dr Patel (tutor): So, Maya, Leo — you've chosen urban heat islands for your presentation. How's the planning going?\n\nMaya (student): Pretty well, I think. We've divided it into three parts: causes, effects on health, and solutions.\n\nLeo (student): Although we're still not sure how much time to give each part.\n\nDr Patel (tutor): What does your research suggest is the most interesting area?\n\nLeo (student): Personally, I thought the causes would be the main focus — dark roads, fewer trees, heat from air conditioners and so on. But when we looked at the data, the solutions part was much richer.\n\nMaya (student): Yes, there are some really creative projects. Cities painting roofs white, planting trees along bus routes…\n\nDr Patel (tutor): Then I'd suggest giving the solutions about half of your time. The audience will already know the basic causes.\n\nMaya (student): That makes sense. For the health effects, we were going to use a case study from Paris.\n\nLeo (student): We did consider the Chicago heatwave in 1995, but there's so much written about it already.\n\nDr Patel (tutor): Paris is a good choice, but make sure your figures are recent. Some of the statistics online are more than twenty years old.\n\nMaya (student): Right. We found a government report from 2022, so we'll use that.\n\nDr Patel (tutor): Good. What about visuals?\n\nLeo (student): I wanted to show a thermal map of the city, where you can see the hot areas in red.\n\nMaya (student): And I'd like to include a short video interview, but Leo thinks it'll take too long.\n\nLeo (student): We only have fifteen minutes in total.\n\nDr Patel (tutor): I agree with Leo. A video of more than a minute will eat into your time. The thermal map will make the point more quickly.\n\nMaya (student): OK, no video then.\n\nDr Patel (tutor): And how are you dividing the speaking?\n\nLeo (student): Maya will introduce the topic and present the health effects, and I'll cover causes and solutions.\n\nDr Patel (tutor): That puts a lot on you, Leo. Why not let Maya present some of the solutions? It'll also make the transition smoother.\n\nMaya (student): I'm happy to do the green roofs part. I actually visited one in Singapore.\n\nDr Patel (tutor): Perfect — a personal example will make it more memorable. Finally, what's your biggest worry?\n\nLeo (student): Honestly, the questions at the end. We're not experts in climate science.\n\nDr Patel (tutor): Nobody expects you to be. If you don't know an answer, just say what you would need to find out. That's a perfectly good academic response.",
+      "questions": [
+        {
+          "type": "mcq",
+          "prompt": "Which part of the presentation did the data show to be the richest?",
+          "options": [
+            "Causes",
+            "Health effects",
+            "Solutions"
+          ],
+          "answer": 2,
+          "explanation": "Leo awalnya mengira 'causes', tapi data menunjukkan 'solutions' lebih kaya.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "mcq",
+          "prompt": "How much time does the tutor suggest giving to solutions?",
+          "options": [
+            "About a quarter",
+            "About half",
+            "Most of the time"
+          ],
+          "answer": 1,
+          "explanation": "'giving the solutions about half of your time'.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why did they decide NOT to use the Chicago case study?",
+          "options": [
+            "The figures were too old",
+            "Too much has already been written about it",
+            "It was not about health"
+          ],
+          "answer": 1,
+          "explanation": "'there's so much written about it already'. Data lama adalah peringatan tutor tentang statistik online.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "completion",
+          "prompt": "They will use a government report from the year ______.",
+          "answer": [
+            "2022"
+          ],
+          "explanation": "'a government report from 2022'.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which visual will they use?",
+          "options": [
+            "A video interview",
+            "A thermal map",
+            "A bar chart"
+          ],
+          "answer": 1,
+          "explanation": "Tutor setuju dengan Leo: video terlalu lama, peta termal lebih cepat.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "completion",
+          "prompt": "Total presentation time: ______ minutes",
+          "answer": [
+            "15",
+            "fifteen"
+          ],
+          "explanation": "'We only have fifteen minutes in total'.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "matching",
+          "prompt": "Who will present the health effects?",
+          "options": [
+            "Maya",
+            "Leo",
+            "Dr Patel"
+          ],
+          "answer": 0,
+          "explanation": "'Maya will introduce the topic and present the health effects'.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "completion",
+          "prompt": "Maya will present the part about green ______ (ONE WORD)",
+          "answer": [
+            "roofs"
+          ],
+          "explanation": "'I'm happy to do the green roofs part'.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "completion",
+          "prompt": "Maya visited one in ______ (ONE WORD)",
+          "answer": [
+            "Singapore"
+          ],
+          "explanation": "'I actually visited one in Singapore'.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does the tutor advise if they cannot answer a question?",
+          "options": [
+            "Change the subject politely",
+            "Say what they would need to find out",
+            "Ask the tutor to answer"
+          ],
+          "answer": 1,
+          "explanation": "'just say what you would need to find out'.",
+          "skillTag": "listening-academic"
+        }
+      ]
+    },
+    {
+      "id": "L-P4-bees",
+      "title": "Lecture: How honeybees find their way",
+      "description": "Section 4 — kuliah akademik, note completion",
+      "section": 4,
+      "file": "p4-honeybee-navigation.mp3",
+      "usage": "practice",
+      "difficulty": 3,
+      "durationSec": 149,
+      "transcript": "Good afternoon. In today's lecture I want to look at a remarkable skill: how honeybees find their way between the hive and the flowers they feed on, sometimes several kilometres away.\n\nThe first and most important tool is the sun. Bees use the position of the sun as a kind of compass. What's surprising is that they can still do this on cloudy days. This is because their eyes can detect polarised light, a pattern in the sky that humans cannot see. So even when the sun itself is hidden, the bee knows where it is.\n\nOf course, the sun moves across the sky during the day, so a fixed compass would not be enough. Bees solve this with an internal clock. Experiments in the nineteen-fifties showed that bees which were trained to visit a feeder in the morning would still fly in the correct direction in the afternoon, adjusting for the sun's movement.\n\nThe second tool is distance measurement. For a long time, scientists assumed that bees measured distance by the energy they used. However, research in the year two thousand showed something different. Bees actually measure distance by how much the image of the ground moves across their eyes — what we call optic flow. When researchers made bees fly through a narrow tunnel with a striped pattern on the walls, the bees behaved as if they had flown much further than they really had.\n\nThirdly, bees use landmarks. Near the hive, they learn the shape of the surroundings — trees, buildings, even the edges of fields. Before a young bee starts collecting food, it makes several orientation flights, circling the hive and memorising what it sees.\n\nFinally, bees share information. A forager that has found a good source of food returns to the hive and performs the famous waggle dance. The angle of the dance tells the other bees the direction relative to the sun, and the length of the waggle part indicates the distance. A longer waggle means the food is further away.\n\nWhy does any of this matter beyond biology? Engineers are now using these ideas to design small flying robots. Because optic flow requires very little computing power, it is ideal for drones that need to navigate indoors, where satellite positioning does not work. In the next lecture we'll look at some of these designs in more detail.",
+      "questions": [
+        {
+          "type": "completion",
+          "prompt": "Bees use the sun as a ______ (ONE WORD)",
+          "answer": [
+            "compass"
+          ],
+          "explanation": "'as a kind of compass'.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "completion",
+          "prompt": "On cloudy days, bees detect ______ light. (ONE WORD)",
+          "answer": [
+            "polarised",
+            "polarized"
+          ],
+          "explanation": "'their eyes can detect polarised light'.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "completion",
+          "prompt": "Bees adjust for the sun's movement using an internal ______ (ONE WORD)",
+          "answer": [
+            "clock"
+          ],
+          "explanation": "'Bees solve this with an internal clock'.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "completion",
+          "prompt": "The feeder experiments took place in the ______ (decade)",
+          "answer": [
+            "1950s",
+            "nineteen fifties",
+            "1950's"
+          ],
+          "explanation": "'Experiments in the nineteen-fifties'.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Scientists used to believe bees measured distance by…",
+          "options": [
+            "the energy they used",
+            "the time they flew",
+            "the position of the sun"
+          ],
+          "answer": 0,
+          "explanation": "'scientists assumed that bees measured distance by the energy they used'.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "completion",
+          "prompt": "Bees actually measure distance using optic ______ (ONE WORD)",
+          "answer": [
+            "flow"
+          ],
+          "explanation": "'what we call optic flow'.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "completion",
+          "prompt": "In the tunnel experiment, the walls had a ______ pattern. (ONE WORD)",
+          "answer": [
+            "striped",
+            "stripe"
+          ],
+          "explanation": "'a striped pattern on the walls'.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "completion",
+          "prompt": "Young bees make ______ flights to learn landmarks. (ONE WORD)",
+          "answer": [
+            "orientation"
+          ],
+          "explanation": "'it makes several orientation flights'.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "mcq",
+          "prompt": "In the waggle dance, the length of the waggle shows…",
+          "options": [
+            "the direction",
+            "the distance",
+            "the amount of food"
+          ],
+          "answer": 1,
+          "explanation": "Sudut = arah; panjang waggle = jarak.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why is optic flow useful for indoor drones?",
+          "options": [
+            "It needs little computing power",
+            "It uses satellite signals",
+            "It works only outdoors"
+          ],
+          "answer": 0,
+          "explanation": "'optic flow requires very little computing power'.",
+          "skillTag": "listening-academic"
+        }
+      ]
+    },
+    {
+      "id": "L-M1-flat",
+      "title": "Mock Part 1: Renting a flat",
+      "description": "Mock Section 1",
+      "section": 1,
+      "file": "mock1-renting-a-flat.mp3",
+      "usage": "mock",
+      "difficulty": 2,
+      "durationSec": 108,
+      "transcript": "Letting agent: Hello, Parkside Lettings, James speaking.\n\nStudent: Hi, I'm calling about the flat advertised on your website — the one on Kingsley Road.\n\nLetting agent: Ah yes, number fifteen. It's a lovely one-bedroom flat on the second floor. Are you looking for yourself?\n\nStudent: Yes, I'm starting a master's course at the university in September.\n\nLetting agent: Great. The rent is six hundred and fifty pounds a month, and that includes water but not electricity or internet.\n\nStudent: Is there a deposit?\n\nLetting agent: Yes, five weeks' rent. Most landlords ask for one month, but this one asks for five weeks.\n\nStudent: OK. What's the flat like inside?\n\nLetting agent: It's recently been redecorated. The kitchen is quite small, but the living room is big and gets lots of light because it faces south. There's no garden, but there's a balcony.\n\nStudent: And is it furnished?\n\nLetting agent: Partly. There's a bed, a sofa and a desk, but you'd need your own table and chairs.\n\nStudent: That's fine. How far is it from the university?\n\nLetting agent: About twenty minutes by bike. There's also a bus stop just outside — the number thirty-one goes straight to the campus.\n\nStudent: Perfect. When could I see it?\n\nLetting agent: I could show you round on Thursday at four, or Friday morning.\n\nStudent: Thursday's no good, I have a lecture. Friday morning, please — around ten?\n\nLetting agent: Ten o'clock on Friday. Could I take your name?\n\nStudent: Sofia Lindqvist. That's L, I, N, D, Q, V, I, S, T.\n\nLetting agent: Thank you, Sofia. And finally, the landlord asks all tenants for a reference. Could you get one from a previous landlord or employer?\n\nStudent: My current employer could write one — I work part-time in a bookshop.\n\nLetting agent: That's perfect. See you on Friday.",
+      "questions": [
+        {
+          "type": "completion",
+          "prompt": "Address: ______ Kingsley Road (A NUMBER)",
+          "answer": [
+            "15",
+            "fifteen"
+          ],
+          "explanation": "'number fifteen'.",
+          "skillTag": "listening-intro"
+        },
+        {
+          "type": "completion",
+          "prompt": "Floor: ______ floor (ONE WORD)",
+          "answer": [
+            "second",
+            "2nd"
+          ],
+          "explanation": "'on the second floor'.",
+          "skillTag": "listening-intro"
+        },
+        {
+          "type": "completion",
+          "prompt": "Monthly rent: £______",
+          "answer": [
+            "650",
+            "six hundred and fifty"
+          ],
+          "explanation": "'six hundred and fifty pounds'.",
+          "skillTag": "listening-intro"
+        },
+        {
+          "type": "mcq",
+          "prompt": "The rent includes…",
+          "options": [
+            "electricity",
+            "water",
+            "internet"
+          ],
+          "answer": 1,
+          "explanation": "'includes water but not electricity or internet'.",
+          "skillTag": "listening-intro"
+        },
+        {
+          "type": "completion",
+          "prompt": "Deposit: ______ weeks' rent (A NUMBER)",
+          "answer": [
+            "5",
+            "five"
+          ],
+          "explanation": "Biasanya sebulan, tetapi pemilik ini meminta lima minggu.",
+          "skillTag": "listening-intro"
+        },
+        {
+          "type": "completion",
+          "prompt": "Outdoor space: a ______ (ONE WORD)",
+          "answer": [
+            "balcony"
+          ],
+          "explanation": "'There's no garden, but there's a balcony'.",
+          "skillTag": "listening-intro"
+        },
+        {
+          "type": "mcq",
+          "prompt": "What furniture does Sofia need to buy?",
+          "options": [
+            "A bed and a sofa",
+            "A desk",
+            "A table and chairs"
+          ],
+          "answer": 2,
+          "explanation": "'you'd need your own table and chairs'.",
+          "skillTag": "listening-intro"
+        },
+        {
+          "type": "completion",
+          "prompt": "Bus number to campus: ______",
+          "answer": [
+            "31",
+            "thirty one",
+            "thirty-one"
+          ],
+          "explanation": "'the number thirty-one'.",
+          "skillTag": "listening-intro"
+        },
+        {
+          "type": "completion",
+          "prompt": "Viewing: Friday at ______ am",
+          "answer": [
+            "10",
+            "ten",
+            "10.00",
+            "10:00"
+          ],
+          "explanation": "Kamis tidak bisa; Jumat pukul 10.",
+          "skillTag": "listening-intro"
+        },
+        {
+          "type": "completion",
+          "prompt": "Reference will come from her current ______ (ONE WORD)",
+          "answer": [
+            "employer"
+          ],
+          "explanation": "'My current employer could write one'.",
+          "skillTag": "listening-intro"
+        }
+      ]
+    },
+    {
+      "id": "L-M2-cleanup",
+      "title": "Mock Part 2: Beach clean-up volunteers",
+      "description": "Mock Section 2",
+      "section": 2,
+      "file": "mock2-beach-clean-up.mp3",
+      "usage": "mock",
+      "difficulty": 2,
+      "durationSec": 121,
+      "transcript": "Hi everyone, and thanks so much for volunteering for this Saturday's beach clean-up. I'm Grace, and I coordinate the volunteer programme here at Coastcare. I'll explain how the day will run and what you need to bring.\n\nWe'll meet at seven thirty in the morning in the car park at the northern end of Bayview Beach, next to the lifeguard tower. Please don't go to the southern car park — it's being resurfaced, and it's closed this weekend.\n\nWhen you arrive, you'll register with one of our team leaders and receive a pair of gloves, a bucket and a grabber, which is a long stick for picking up rubbish without bending down. We've had a lot of new volunteers this year, so we may run short of grabbers. If you've got your own, please bring it along.\n\nPlease wear clothes you don't mind getting dirty, and strong shoes — not sandals, because there can be broken glass in the sand. Bring a hat and plenty of water. We provide sunscreen, so you don't need to pack that.\n\nThe beach will be divided into four zones. Families with young children will work in Zone A, close to the playground, where the sand is clean and soft. Zone B is the rocky area, and that's for experienced volunteers only. Zones C and D cover the dunes, and in those zones please stay on the marked paths, as birds are nesting there at this time of year.\n\nNow, what happens to the rubbish? Everything you collect goes to the sorting tent. We separate plastic bottles, fishing equipment and everything else. We then record the numbers on our data sheet, and the results go to a national research project on ocean pollution. Last year, the item we found most often was cigarette ends, followed by plastic bottle caps.\n\nWe'll finish at eleven o'clock. After that, there's a free barbecue for all volunteers, kindly provided by a local supermarket. And for anyone who completes five clean-ups this year, we'll give you a certificate, which can be useful if you're applying for jobs in environmental work.\n\nAny questions so far? No? Great — let's look at the safety rules.",
+      "questions": [
+        {
+          "type": "completion",
+          "prompt": "Meeting time: ______ am",
+          "answer": [
+            "7.30",
+            "7:30",
+            "seven thirty",
+            "730"
+          ],
+          "explanation": "'seven thirty in the morning'.",
+          "skillTag": "listening-maps"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Where should volunteers meet?",
+          "options": [
+            "The southern car park",
+            "The northern car park",
+            "The playground"
+          ],
+          "answer": 1,
+          "explanation": "Utara, dekat menara lifeguard. Yang selatan sedang ditutup.",
+          "skillTag": "listening-maps"
+        },
+        {
+          "type": "mcq",
+          "prompt": "What are volunteers asked to bring if they have one?",
+          "options": [
+            "A bucket",
+            "A grabber",
+            "Gloves"
+          ],
+          "answer": 1,
+          "explanation": "Grabber mungkin kurang — bawa sendiri jika punya.",
+          "skillTag": "listening-maps"
+        },
+        {
+          "type": "mcq",
+          "prompt": "What do volunteers NOT need to bring?",
+          "options": [
+            "Water",
+            "A hat",
+            "Sunscreen"
+          ],
+          "answer": 2,
+          "explanation": "'We provide sunscreen'.",
+          "skillTag": "listening-maps"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why should volunteers not wear sandals?",
+          "options": [
+            "Broken glass",
+            "Hot sand",
+            "Rocks"
+          ],
+          "answer": 0,
+          "explanation": "'there can be broken glass in the sand'.",
+          "skillTag": "listening-maps"
+        },
+        {
+          "type": "matching",
+          "prompt": "Which zone is for experienced volunteers only?",
+          "options": [
+            "Zone A",
+            "Zone B",
+            "Zone C",
+            "Zone D"
+          ],
+          "answer": 1,
+          "explanation": "Zone B = area berbatu.",
+          "skillTag": "listening-maps"
+        },
+        {
+          "type": "completion",
+          "prompt": "In the dunes, volunteers must stay on the paths because ______ are nesting. (ONE WORD)",
+          "answer": [
+            "birds"
+          ],
+          "explanation": "'birds are nesting there'.",
+          "skillTag": "listening-maps"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which item was found most often last year?",
+          "options": [
+            "Plastic bottle caps",
+            "Cigarette ends",
+            "Fishing equipment"
+          ],
+          "answer": 1,
+          "explanation": "Cigarette ends paling banyak, lalu tutup botol.",
+          "skillTag": "listening-maps"
+        },
+        {
+          "type": "completion",
+          "prompt": "The clean-up finishes at ______ o'clock.",
+          "answer": [
+            "11",
+            "eleven"
+          ],
+          "explanation": "'We'll finish at eleven o'clock'.",
+          "skillTag": "listening-maps"
+        },
+        {
+          "type": "completion",
+          "prompt": "Volunteers who complete ______ clean-ups receive a certificate. (A NUMBER)",
+          "answer": [
+            "5",
+            "five"
+          ],
+          "explanation": "'anyone who completes five clean-ups'.",
+          "skillTag": "listening-maps"
+        }
+      ]
+    },
+    {
+      "id": "L-M3-food-waste",
+      "title": "Mock Part 3: Food waste research project",
+      "description": "Mock Section 3",
+      "section": 3,
+      "file": "mock3-food-waste-project.mp3",
+      "usage": "mock",
+      "difficulty": 3,
+      "durationSec": 136,
+      "transcript": "Hana (student): Marcus, have you had a chance to look at the results from the canteen survey?\n\nMarcus (student): Yes, I went through them last night. The headline figure is that about thirty percent of the food served at lunch ends up in the bin.\n\nHana (student): Thirty? I expected it to be higher, to be honest, given what we saw on the first day.\n\nMarcus (student): The first day was a Monday, and they'd cooked extra because of a staff event that was cancelled. If we take that day out, it's actually twenty-six percent.\n\nHana (student): Good point. We should mention that in our methodology section, so readers know why we excluded it.\n\nMarcus (student): Agreed. What about the types of food? Vegetables were the most wasted category.\n\nHana (student): That's not surprising. But I think the more interesting finding is about bread. Students threw away almost half the bread rolls they took.\n\nMarcus (student): Because they're free and placed next to the till, so people just grab one without thinking.\n\nHana (student): Exactly. So one recommendation could be to move the bread to the start of the counter, or to make students ask for it.\n\nMarcus (student): I like asking for it. It's cheap, and it doesn't need any changes to the layout.\n\nHana (student): OK. And the second recommendation is about portion sizes. Lots of people said the plates were too full.\n\nMarcus (student): Right, so we could suggest offering a small portion at a lower price.\n\nHana (student): Although the canteen manager told us they tried that two years ago and almost nobody chose it.\n\nMarcus (student): Because the price difference was tiny. If the small portion was, say, a pound cheaper, I think people would take it.\n\nHana (student): Maybe. We should present it as something to trial for a term rather than a firm recommendation.\n\nMarcus (student): Fair enough. Now, how do we present the data? I was thinking a pie chart for the food categories.\n\nHana (student): A pie chart with eight categories would be hard to read. A bar chart would be clearer.\n\nMarcus (student): True. And for the change over the two weeks, a line graph.\n\nHana (student): Yes. Then we need to decide who writes what. I could do the literature review, since I've already read most of the articles.\n\nMarcus (student): Then I'll take the results and the charts. And we'll write the conclusion together.\n\nHana (student): Sounds good. The deadline's the twelfth, so let's aim to have a full draft by the fifth.",
+      "questions": [
+        {
+          "type": "completion",
+          "prompt": "Proportion of lunch food wasted (all days): ______ percent",
+          "answer": [
+            "30",
+            "thirty"
+          ],
+          "explanation": "'about thirty percent'.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why will they exclude the first day?",
+          "options": [
+            "The survey was incomplete",
+            "Extra food was cooked for a cancelled event",
+            "The canteen was closed"
+          ],
+          "answer": 1,
+          "explanation": "Ada acara staf yang dibatalkan sehingga makanan berlebih.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "completion",
+          "prompt": "Figure without the first day: ______ percent",
+          "answer": [
+            "26",
+            "twenty six",
+            "twenty-six"
+          ],
+          "explanation": "'it's actually twenty-six percent'.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which category was wasted most?",
+          "options": [
+            "Bread",
+            "Vegetables",
+            "Meat"
+          ],
+          "answer": 1,
+          "explanation": "'Vegetables were the most wasted category'. Roti adalah temuan 'paling menarik', bukan terbanyak.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which bread recommendation do they prefer?",
+          "options": [
+            "Moving the bread",
+            "Asking students to request it",
+            "Charging for bread"
+          ],
+          "answer": 1,
+          "explanation": "Marcus suka 'asking for it' karena murah dan tidak mengubah tata letak.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why did the small-portion option fail before?",
+          "options": [
+            "It tasted worse",
+            "The price difference was too small",
+            "It was only offered on Mondays"
+          ],
+          "answer": 1,
+          "explanation": "'the price difference was tiny'.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "mcq",
+          "prompt": "How will they present the portion idea?",
+          "options": [
+            "As a firm recommendation",
+            "As a trial for one term",
+            "They will not include it"
+          ],
+          "answer": 1,
+          "explanation": "'something to trial for a term'.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which chart will show the food categories?",
+          "options": [
+            "Pie chart",
+            "Bar chart",
+            "Line graph"
+          ],
+          "answer": 1,
+          "explanation": "Pie chart dengan 8 kategori sulit dibaca → bar chart.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "matching",
+          "prompt": "Who will write the literature review?",
+          "options": [
+            "Hana",
+            "Marcus",
+            "Both"
+          ],
+          "answer": 0,
+          "explanation": "Hana sudah membaca sebagian besar artikel.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "completion",
+          "prompt": "Target date for the full draft: the ______",
+          "answer": [
+            "5th",
+            "5",
+            "fifth"
+          ],
+          "explanation": "Deadline tanggal 12, draft tanggal 5.",
+          "skillTag": "listening-academic"
+        }
+      ]
+    },
+    {
+      "id": "L-M4-qanats",
+      "title": "Mock Part 4: Ancient water tunnels",
+      "description": "Mock Section 4",
+      "section": 4,
+      "file": "mock4-ancient-water-tunnels.mp3",
+      "usage": "mock",
+      "difficulty": 3,
+      "durationSec": 153,
+      "transcript": "Today I'd like to talk about one of the most impressive engineering achievements of the ancient world, and one that is still in use in some places: the qanat, an underground tunnel used to bring water to dry regions.\n\nQanats were first developed in ancient Persia, in what is now Iran, about three thousand years ago. The idea later spread across the Middle East, North Africa and even to Spain, and from there to parts of South America.\n\nSo how does a qanat work? It begins at the foot of a hill or mountain, where water is found underground. Workers dug a vertical shaft, which we call the mother well, down to the level of the groundwater. Then, starting from the village or farmland, they dug a gently sloping tunnel back towards that mother well. The slope had to be very slight. If it was too steep, the water would flow too fast and wear away the tunnel walls.\n\nAlong the length of the tunnel, workers dug more vertical shafts at regular intervals. These served two purposes: they allowed the soil to be removed, and they provided fresh air for the diggers. From above, a qanat looks like a long line of small craters across the desert.\n\nThe main advantage of a qanat is that the water travels underground, so very little is lost to evaporation, which is a major problem with open canals in hot climates. Also, because gravity moves the water, no pumps or energy are needed.\n\nThe workers who built and maintained qanats were highly skilled specialists, and the profession was often passed down from father to son. It was dangerous work; tunnels could collapse, and the workers had to rely on simple tools such as a lamp to check the direction and the quality of the air.\n\nQanats also shaped the design of buildings. In some Persian houses, cool air from the tunnel was drawn up into the rooms, providing a natural form of air conditioning. Some qanats even supplied underground ice houses, where ice was stored throughout the summer.\n\nToday, many qanats have fallen out of use, mainly because modern electric pumps allow farmers to extract groundwater much faster. Unfortunately, this has lowered the water table, causing some old qanats to dry up. However, there is renewed interest in restoring them, because they offer a sustainable way to manage water. In twenty sixteen, eleven Persian qanats were added to the UNESCO World Heritage List.",
+      "questions": [
+        {
+          "type": "completion",
+          "prompt": "Qanats were first developed in ancient ______ (ONE WORD)",
+          "answer": [
+            "Persia"
+          ],
+          "explanation": "'first developed in ancient Persia'.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "completion",
+          "prompt": "They are about ______ years old. (A NUMBER)",
+          "answer": [
+            "3000",
+            "3,000",
+            "three thousand"
+          ],
+          "explanation": "'about three thousand years ago'.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "completion",
+          "prompt": "The first vertical shaft is called the ______ well. (ONE WORD)",
+          "answer": [
+            "mother"
+          ],
+          "explanation": "'which we call the mother well'.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why did the tunnel need only a slight slope?",
+          "options": [
+            "To make digging easier",
+            "To stop fast water damaging the walls",
+            "To collect more water"
+          ],
+          "answer": 1,
+          "explanation": "Air terlalu cepat akan mengikis dinding.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "completion",
+          "prompt": "The extra shafts provided fresh ______ for diggers. (ONE WORD)",
+          "answer": [
+            "air"
+          ],
+          "explanation": "'provided fresh air for the diggers'.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "mcq",
+          "prompt": "The main advantage of qanats is that…",
+          "options": [
+            "little water is lost to evaporation",
+            "they are cheap to build",
+            "they work only in mountains"
+          ],
+          "answer": 0,
+          "explanation": "Air mengalir di bawah tanah sehingga sedikit yang menguap.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "completion",
+          "prompt": "Workers used a ______ to check direction and air quality. (ONE WORD)",
+          "answer": [
+            "lamp"
+          ],
+          "explanation": "'simple tools such as a lamp'.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "completion",
+          "prompt": "Some qanats supplied underground ______ houses. (ONE WORD)",
+          "answer": [
+            "ice"
+          ],
+          "explanation": "'underground ice houses'.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why have many qanats fallen out of use?",
+          "options": [
+            "Wars destroyed them",
+            "Electric pumps extract water faster",
+            "The climate became wetter"
+          ],
+          "answer": 1,
+          "explanation": "Pompa listrik menurunkan muka air tanah.",
+          "skillTag": "listening-academic"
+        },
+        {
+          "type": "completion",
+          "prompt": "Number of Persian qanats on the UNESCO list: ______",
+          "answer": [
+            "11",
+            "eleven"
+          ],
+          "explanation": "'eleven Persian qanats were added'.",
+          "skillTag": "listening-academic"
+        }
+      ]
+    }
+  ]
 }

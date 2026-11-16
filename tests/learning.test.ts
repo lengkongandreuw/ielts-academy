@@ -112,6 +112,11 @@ describe("engine: assessments", () => {
     const [, b] = run(s, (d) => E.startSession(d, { kind: "practice", section: "reading", refId: "sleep-and-memory" }));
     expect(a).toBe(b);
   });
+  it("daily challenge has 5 distinct questions even when only one lesson is open", () => {
+    const qs = E.challengeQuestions(onboarded(), "2026-11-17");
+    expect(qs).toHaveLength(5);
+    expect(new Set(qs.map((q) => q.prompt + q.options.join())).size).toBe(5);
+  });
   it("daily challenge gives 5 questions and is stable for the day", () => {
     const s = onboarded();
     expect(E.challengeQuestions(s, "2026-11-16")).toHaveLength(5);

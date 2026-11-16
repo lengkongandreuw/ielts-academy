@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { Button, Notice } from "./ui";
+import { Notice, cx } from "./ui";
 
 const fmt = (t: number) => `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, "0")}`;
 
@@ -9,7 +9,7 @@ const fmt = (t: number) => `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).p
  * Exam mode: no seeking, no speed change, plays through once. The position is remembered,
  * so a reload or interruption resumes where it stopped instead of restarting or skipping.
  */
-export function AudioPlayer({ src, storageKey, exam }: { src: string; storageKey: string; exam: boolean }) {
+export function AudioPlayer({ src, storageKey, exam, durationHint }: { src: string; storageKey: string; exam: boolean; durationHint?: number | null }) {
   const a = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
   const [t, setT] = useState(0);
@@ -18,6 +18,7 @@ export function AudioPlayer({ src, storageKey, exam }: { src: string; storageKey
   const [ended, setEnded] = useState(false);
   const [failed, setFailed] = useState(false);
   const [paused, setPaused] = useState(false);
+  const total = dur || durationHint || 0;
 
   useEffect(() => {
     try {
@@ -55,12 +56,13 @@ export function AudioPlayer({ src, storageKey, exam }: { src: string; storageKey
   }
 
   return (
-    <div className="rounded-xl bg-surface-2 p-3">
+    <div className="neu rounded-3xl p-5">
       <audio
         ref={a}
         src={src}
         preload="metadata"
-        onLoadedMetadata={(e) => setDur(e.currentTarget.duration || 0)}
+        onLoadedMetadata={(e) => setDur(Number.isFinite(e.currentTarget.duration) ? e.currentTarget.duration : 0)}
+        onDurationChange={(e) => Number.isFinite(e.currentTarget.duration) && setDur(e.currentTarget.duration)}
         onTimeUpdate={(e) => {
           setT(e.currentTarget.currentTime);
           if (Math.floor(e.currentTarget.currentTime) % 3 === 0) remember({ t: e.currentTarget.currentTime });
@@ -78,24 +80,34 @@ export function AudioPlayer({ src, storageKey, exam }: { src: string; storageKey
         <Notice tone="warning">Audio tidak dapat dimuat. Pastikan file audio ada di folder <code>public/audio/</code> dan koneksi stabil.</Notice>
       ) : (
         <>
-          <div className="flex items-center gap-3">
-            <Button size="sm" onClick={toggle} disabled={exam && ended} aria-label={playing ? "Jeda" : "Putar"}>
-              {playing ? "❚❚ Pause" : ended ? (exam ? "Selesai" : "↺ Ulangi") : t > 0 ? "▶ Lanjut" : "▶ Play"}
-            </Button>
-            <span className="font-mono text-xs tabular-nums text-muted">{fmt(t)} / {dur ? fmt(dur) : "–:––"}</span>
+          <div className="flex items-center gap-4">
+            <button onClick={toggle} disabled={exam && ended} aria-label={playing ? "Jeda" : ended ? (exam ? "Selesai" : "Ulangi") : "Putar"}
+              className={cx("grid size-16 shrink-0 place-items-center rounded-full text-white disabled:opacity-40", playing ? "btn-brand" : "btn-brand pulse-ring")}>
+              {playing ? (
+                <svg viewBox="0 0 24 24" className="size-7" fill="currentColor" aria-hidden><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" /></svg>
+              ) : ended && !exam ? (
+                <svg viewBox="0 0 24 24" className="size-7" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" aria-hidden><path d="M4 12a8 8 0 108-8H8M8 1v6h6" /></svg>
+              ) : (
+                <svg viewBox="0 0 24 24" className="ml-1 size-7" fill="currentColor" aria-hidden><path d="M7 4.5v15a1 1 0 001.5.86l12.5-7.5a1 1 0 000-1.72L8.5 3.64A1 1 0 007 4.5z" /></svg>
+              )}
+            </button>
+            <div className="min-w-0">
+              <p className="text-sm font-bold">{playing ? "Sedang diputar…" : ended ? "Selesai diputar" : t > 0 ? "Dijeda" : "Tekan untuk mendengarkan"}</p>
+              <span className="font-mono text-xs tabular-nums text-muted">{fmt(t)} / {total ? fmt(total) : "–:––"}</span>
+            </div>
             {!exam && (
-              <select aria-label="Kecepatan" value={rate} onChange={(e) => { const r = Number(e.target.value); setRate(r); if (a.current) a.current.playbackRate = r; }} className="ml-auto rounded-md border border-line bg-surface px-2 py-1 text-xs">
+              <select aria-label="Kecepatan" value={rate} onChange={(e) => { const r = Number(e.target.value); setRate(r); if (a.current) a.current.playbackRate = r; }} className="neu-sm ml-auto rounded-xl px-3 py-2 text-sm font-bold">
                 {[0.75, 0.9, 1, 1.25].map((r) => <option key={r} value={r}>{r}×</option>)}
               </select>
             )}
           </div>
           {exam ? (
-            <div className="mt-2 h-1.5 rounded-full bg-line" aria-hidden><div className="h-full rounded-full bg-primary" style={{ width: dur ? `${(t / dur) * 100}%` : "0%" }} /></div>
+            <div className="neu-inset mt-4 h-3 rounded-full" aria-hidden><div className="bar-fill h-full rounded-full" style={{ width: total ? `${Math.min(100, (t / total) * 100)}%` : "0%" }} /></div>
           ) : (
-            <input type="range" min={0} max={dur || 0} step={0.5} value={t} aria-label="Posisi audio" className="mt-2 w-full accent-[var(--primary)]"
+            <input type="range" min={0} max={total || 0} step={0.5} value={t} aria-label="Posisi audio" className="mt-4 w-full accent-[var(--primary)]"
               onChange={(e) => { if (a.current) a.current.currentTime = Number(e.target.value); }} />
           )}
-          <p className="mt-2 text-xs text-muted">
+          <p className="mt-3 text-xs text-muted">
             {exam
               ? ended ? "Audio sudah diputar. Seperti di ujian, audio tidak bisa diulang." : paused ? "Audio dijeda (gangguan). Lanjutkan sesegera mungkin — di ujian asli audio tidak berhenti." : "Mode ujian: audio diputar sekali, tidak bisa dipercepat atau digeser."
               : "Mode belajar: boleh diulang, digeser, dan diatur kecepatannya."}

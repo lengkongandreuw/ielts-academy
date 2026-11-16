@@ -68,7 +68,7 @@ export function AssessmentRunner({ id, backHref, backLabel, onSubmitted }: { id:
 
   const answeredCount = qs.filter((q) => answers[q.id] !== undefined && answers[q.id] !== "").length;
   const itemResult = useMemo(() => Object.fromEntries((s.result?.objective.items ?? []).map((i) => [i.id, i.correct])), [s.result]);
-  const hasPassage = s.passages.length > 0 || s.listening.length > 0;
+  const anyMedia = s.passages.length > 0 || s.listening.length > 0;
 
   // Group passage text by question → which passage it belongs to (for multi-passage tests).
   const passageOf = (qid: string) => qs.find((q) => q.id === qid)?.group ?? undefined;
@@ -76,6 +76,8 @@ export function AssessmentRunner({ id, backHref, backLabel, onSubmitted }: { id:
   const activePassage = currentQ ? s.passages.find((p) => p.id === passageOf(currentQ.id)) ?? null : null;
   const visiblePassages = activePassage ? [activePassage] : currentQ?.section === "reading" ? s.passages : [];
   const activeListening = currentQ?.section === "listening" ? s.listening.find((l) => l.id === currentQ.group) ?? s.listening[0] : null;
+  // Only split the screen when the current question actually has a passage or audio.
+  const hasPassage = anyMedia && (visiblePassages.length > 0 || !!activeListening);
   const evidence = evidenceFor ? qs.find((q) => q.id === evidenceFor)?.evidence ?? null : null;
 
   function addHighlight() {
@@ -103,7 +105,7 @@ export function AssessmentRunner({ id, backHref, backLabel, onSubmitted }: { id:
   return (
     <div className="flex min-h-dvh flex-col">
       {/* Top bar */}
-      <header className="sticky top-0 z-30 flex flex-wrap items-center justify-between gap-2 border-b border-line bg-surface px-4 py-2.5">
+      <header className="sticky top-0 z-30 flex flex-wrap items-center justify-between gap-2 bg-bg/85 px-4 py-3 backdrop-blur-md">
         <div className="flex items-center gap-3">
           <Link href={backHref} className="text-sm text-muted hover:text-fg">← {backLabel}</Link>
           <Badge tone={exam ? "warning" : "primary"}>{exam ? "Exam mode" : "Learning mode"}</Badge>
@@ -141,7 +143,7 @@ export function AssessmentRunner({ id, backHref, backLabel, onSubmitted }: { id:
                 {activeListening && (
                   <div className="mb-6">
                     <p className="mb-2 text-sm font-semibold">Listening Part {activeListening.section}: {activeListening.title}</p>
-                    <AudioPlayer src={audioUrl(activeListening.file)} storageKey={`${LS}-audio-${activeListening.id}`} exam={exam && !submitted} />
+                    <AudioPlayer src={audioUrl(activeListening.file)} storageKey={`${LS}-audio-${activeListening.id}`} exam={exam && !submitted} durationHint={activeListening.durationSec} />
                     {submitted && activeListening.transcript && (
                       <details className="mt-3 text-sm">
                         <summary className="cursor-pointer text-primary">Tampilkan transcript</summary>
@@ -180,9 +182,9 @@ export function AssessmentRunner({ id, backHref, backLabel, onSubmitted }: { id:
                   const r = itemResult[q.id];
                   return (
                     <button key={q.id} onClick={() => setIdx(i)} aria-label={`Soal ${i + 1}${a ? ", dijawab" : ""}${flagged.has(q.id) ? ", ditandai" : ""}`} aria-current={i === idx}
-                      className={cx("relative size-8 rounded-md text-xs font-medium tabular-nums",
+                      className={cx("relative size-10 rounded-xl text-sm font-bold tabular-nums transition-all",
                         i === idx && "ring-2 ring-primary",
-                        submitted ? (r === true ? "bg-success-soft text-success" : r === false ? "bg-danger-soft text-danger" : "bg-surface-2 text-muted") : a ? "bg-primary text-primary-fg" : "bg-surface-2")}>
+                        submitted ? (r === true ? "bg-success-soft text-success" : r === false ? "bg-danger-soft text-danger" : "bg-surface-2 text-muted") : a ? "btn-brand text-white" : "neu-sm text-fg/80")}>
                       {i + 1}
                       {flagged.has(q.id) && <span className="absolute -right-0.5 -top-0.5 size-2 rounded-full bg-warning" />}
                     </button>
@@ -261,25 +263,29 @@ function QuestionCard({ n, q, value, submitted, correct, flagged, onFlag, onAnsw
       <fieldset>
         <legend className="mb-3 font-medium"><span className="text-muted">{n}.</span> {q.prompt}</legend>
         {labels ? (
-          <div className="flex flex-wrap gap-2">
+          <div className="grid gap-3 sm:grid-cols-3">
             {labels.map((l) => (
-              <label key={l} className={cx("cursor-pointer rounded-lg border px-4 py-2 text-sm", value === l ? "border-primary bg-primary-soft font-medium" : "border-line hover:bg-surface-2")}>
+              <label key={l} data-selected={value === l} className={cx("choice flex min-h-14 cursor-pointer items-center justify-center rounded-2xl px-4 py-3 text-sm font-extrabold tracking-wide", submitted && "pointer-events-none")}>
                 <input type="radio" name={name} className="sr-only" checked={value === l} onChange={() => onAnswer(l)} disabled={submitted} />
                 {l}
               </label>
             ))}
           </div>
         ) : q.type === "mcq" || q.type === "matching" ? (
-          <div className="space-y-2">
-            {q.options.map((o, i) => (
-              <label key={i} className={cx("flex cursor-pointer items-center gap-3 rounded-lg border px-3 py-2 text-sm", value !== undefined && value !== "" && Number(value) === i ? "border-primary bg-primary-soft" : "border-line hover:bg-surface-2")}>
-                <input type="radio" name={name} checked={value !== undefined && value !== "" && Number(value) === i} onChange={() => onAnswer(i)} disabled={submitted} className="accent-[var(--primary)]" />
-                {q.type === "matching" && o.length > 1 ? o : <span><span className="mr-1 font-medium">{q.type === "matching" ? "" : String.fromCharCode(65 + i) + "."}</span>{o}</span>}
-              </label>
-            ))}
+          <div className="grid gap-3">
+            {q.options.map((o, i) => {
+              const sel = value !== undefined && value !== "" && Number(value) === i;
+              return (
+                <label key={i} data-selected={sel} className={cx("choice flex min-h-14 cursor-pointer items-center gap-3 rounded-2xl px-4 py-3 text-[15px] font-semibold", submitted && "pointer-events-none")}>
+                  <input type="radio" name={name} checked={sel} onChange={() => onAnswer(i)} disabled={submitted} className="sr-only" />
+                  <span className={cx("grid size-8 shrink-0 place-items-center rounded-xl text-sm font-extrabold", sel ? "btn-brand text-white" : "neu-inset text-muted")}>{String.fromCharCode(65 + i)}</span>
+                  {o}
+                </label>
+              );
+            })}
           </div>
         ) : (
-          <input aria-label={`Jawaban soal ${n}`} className={inputCls} value={value ?? ""} onChange={(e) => onAnswer(e.target.value)} disabled={submitted} placeholder="Ketik jawaban…" maxLength={120} />
+          <input aria-label={`Jawaban soal ${n}`} className={inputCls} value={value ?? ""} onChange={(e) => onAnswer(e.target.value)} disabled={submitted} placeholder="Ketik jawabanmu di sini…" maxLength={120} />
         )}
       </fieldset>
       {submitted && (

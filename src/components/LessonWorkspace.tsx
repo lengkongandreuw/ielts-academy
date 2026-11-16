@@ -5,7 +5,7 @@ import type { LessonBlock } from "../../content/types";
 import { useAction, useApp } from "@/lib/store";
 import { checkExercise, completeLesson, lessonStates, revealExercise, saveLessonProgress } from "@/lib/engine";
 import { LESSON_BY_ID, LESSON_META, PHASES, VOCAB_BY_WORD, WEEKS } from "@/lib/content";
-import { Badge, Button, Card, Empty, LinkButton, Notice, Progress, Rich, cx, inputCls } from "./ui";
+import { Badge, Button, Card, Confetti, Empty, LinkButton, Notice, Progress, Rich, cx, inputCls } from "./ui";
 import { TutorPanel } from "./TutorPanel";
 
 type Ex = { id: string; type: "mcq" | "completion"; prompt: string; options: string[]; category: string; result: { correct: boolean; attempts: number; explanation?: string; answerText?: string } | null };
@@ -168,6 +168,7 @@ function LessonWorkspace({ id, lessonState: lstate, vocab }: { id: string; lesso
             />
           </Card>
 
+          <Confetti show={done?.status === "completed"} />
           {done && (
             <Notice tone={done.status === "completed" ? "success" : "warning"}>
               {done.status === "completed" ? (
@@ -370,42 +371,48 @@ function BlockView({ block, exs, answers, hints, busy, vocab, onAnswer, onCheck 
   }
 }
 
+const CHEER = ["Hebat!", "Mantap!", "Keren!", "Tepat sekali!", "Luar biasa!"];
+
 function ExerciseItem({ n, ex, value, hint, busy, onAnswer, onCheck }: { n: number; ex: Ex; value: string | number | undefined; hint?: string; busy: boolean; onAnswer: (v: string | number) => void; onCheck: () => void }) {
   const r = ex.result;
   const locked = !!r && (r.correct || r.attempts >= 2);
   const name = `ex-${ex.id}`;
+  const picked = (i: number) => value !== undefined && value !== "" && Number(value) === i;
+  const stateOf = (i: number) => (!r || !picked(i) ? undefined : r.correct ? "correct" : "wrong");
   return (
-    <fieldset className="rounded-lg border border-line p-4">
+    <fieldset className="neu rounded-3xl p-5 sm:p-6">
       <legend className="sr-only">Soal {n}</legend>
-      <p className="mb-3 font-medium">
-        <span className="text-muted">{n}.</span> {ex.prompt}
+      <p className="mb-4 flex gap-3 text-lg font-bold leading-snug">
+        <span className="neu-inset grid size-8 shrink-0 place-items-center rounded-xl text-sm text-primary">{n}</span>
+        <span>{ex.prompt}</span>
       </p>
       {ex.type === "mcq" ? (
-        <div className="space-y-2" role="radiogroup">
+        <div className="grid gap-3 sm:grid-cols-2" role="radiogroup">
           {ex.options.map((o, i) => (
-            <label key={i} className={cx("flex cursor-pointer items-center gap-3 rounded-lg border px-3 py-2 text-sm transition-colors", Number(value) === i && value !== undefined && value !== "" ? "border-primary bg-primary-soft" : "border-line hover:bg-surface-2", locked && "cursor-default")}>
-              <input type="radio" name={name} checked={value !== undefined && value !== "" && Number(value) === i} onChange={() => onAnswer(i)} disabled={locked} className="accent-[var(--primary)]" />
+            <label key={`${i}-${r?.attempts ?? 0}`} data-selected={picked(i)} data-state={stateOf(i)}
+              className={cx("choice flex min-h-14 cursor-pointer items-center gap-3 rounded-2xl px-4 py-3 text-[15px] font-semibold", locked && "pointer-events-none")}>
+              <input type="radio" name={name} className="sr-only" checked={picked(i)} onChange={() => onAnswer(i)} disabled={locked} />
+              <span className={cx("grid size-8 shrink-0 place-items-center rounded-xl text-sm font-extrabold", picked(i) ? "btn-brand text-white" : "neu-inset text-muted")}>{String.fromCharCode(65 + i)}</span>
               {o}
             </label>
           ))}
         </div>
       ) : (
-        <input aria-label={`Jawaban soal ${n}`} className={inputCls} value={value ?? ""} onChange={(e) => onAnswer(e.target.value)} disabled={locked} onKeyDown={(e) => e.key === "Enter" && !locked && onCheck()} placeholder="Ketik jawaban…" />
+        <input aria-label={`Jawaban soal ${n}`} className={cx(inputCls, r && !r.correct && !locked && "shake")} value={value ?? ""} onChange={(e) => onAnswer(e.target.value)} disabled={locked} onKeyDown={(e) => e.key === "Enter" && !locked && onCheck()} placeholder="Ketik jawabanmu di sini…" />
       )}
-      <div className="mt-3 flex flex-wrap items-center gap-3">
-        {!locked && (
-          <Button size="sm" onClick={onCheck} disabled={busy}>
+      {!locked && (
+        <div className="mt-4 flex flex-wrap items-center gap-3">
+          <Button onClick={onCheck} disabled={busy || value === undefined || value === ""}>
             {busy ? "Mengecek…" : r ? "Coba lagi" : "Check Answer"}
           </Button>
-        )}
-        {r && r.correct && <Badge tone="success">✓ Benar{r.attempts > 1 ? " (percobaan kedua)" : ""}</Badge>}
-        {r && !r.correct && <Badge tone="danger">✗ Belum tepat</Badge>}
-      </div>
-      {hint && !locked && <p className="mt-2 text-sm text-warning">{hint}</p>}
-      {locked && r?.explanation && (
-        <div className="mt-3 rounded-lg bg-surface-2 p-3 text-sm">
-          {!r.correct && <p className="mb-1"><span className="text-muted">Jawaban benar:</span> <strong>{r.answerText}</strong></p>}
-          <p><span className="text-muted">Review explanation:</span> {r.explanation}</p>
+          {hint && <p key={r?.attempts} className="fade-in text-sm font-semibold text-amber">💪 {hint}</p>}
+        </div>
+      )}
+      {locked && r && (
+        <div className={cx("pop mt-4 rounded-2xl p-4 text-sm ring-1", r.correct ? "bg-success/10 ring-success/35" : "bg-danger/10 ring-danger/35")} role="status">
+          <p className="text-base font-extrabold">{r.correct ? `🎉 ${CHEER[n % CHEER.length]} ${r.attempts > 1 ? "Benar di percobaan kedua." : ""}` : "Belum tepat — tidak apa-apa, kita belajar dari sini."}</p>
+          {!r.correct && <p className="mt-1">Jawaban benar: <strong className="text-success">{r.answerText}</strong></p>}
+          {r.explanation && <p className="mt-1 text-muted">{r.explanation}</p>}
         </div>
       )}
     </fieldset>

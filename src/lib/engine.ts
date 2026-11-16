@@ -354,14 +354,16 @@ export function challengeQuestions(s: AppState, date = todayKey()): SnapshotQues
       pool.push({ id: `CH-${e.id}`, version: 1, section: l.skill === "vocabulary" ? "vocabulary" : "grammar", type: e.type, prompt: e.prompt, options: e.options, answer: e.answer, explanation: e.explanation, evidence: null, group: null, skillTag: e.skillTag, cefr: (l.completionRules.cefr as string) ?? "B1", difficulty: 2 });
     }
   }
-  if (pool.length < 5) pool.push(...DIAGNOSTIC_QUESTIONS.map((q) => ({ ...q, id: `CH-${q.id}` })));
   const scored = pool.map((q) => ({ q, k: (openTags.has(q.skillTag) ? 1 : 0) + rnd() }));
   scored.sort((a, b) => b.k - a.k);
+  // Early in the course few lessons are open, so top up from the diagnostic bank to always reach 5.
+  const backup = DIAGNOSTIC_QUESTIONS.map((q) => ({ q: { ...q, id: `CH-${q.id}` }, k: rnd() })).sort((a, b) => b.k - a.k);
   const seen = new Set<string>();
   const out: SnapshotQuestion[] = [];
-  for (const { q } of scored) {
-    if (seen.has(q.prompt)) continue;
-    seen.add(q.prompt);
+  for (const { q } of [...scored, ...backup]) {
+    const key = `${q.prompt}|${q.options.join("|")}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
     out.push(q);
     if (out.length === 5) break;
   }

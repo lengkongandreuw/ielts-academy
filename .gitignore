@@ -45,3 +45,4 @@ next-env.d.ts
 /storage/
 /.claude/settings.local.json
 /e2e-shots/
+/audio-src/
